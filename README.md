@@ -82,7 +82,9 @@ Up to you if you want to implement or if you can implement it once just to show 
 I've created a live API with test data. To log in and obtain a valid jwt token navigate to [https://api.rhysevans.co.uk/auth/signup?role=supplyteacher](https://api.rhysevans.co.uk/auth/signup?role=supplyteacher). It will redirect to LinkedIn and you must sign in and approve the flow.    
 
 You will then be redirected to a landing page with a JWT token in the body and a new cookie called `access_token` with the jwt token in.
+This cookie will have approved domains tied to it so the react page should be able to pick it up (untested).
 We may need to change the auth flow and I'm open to suggestions to make your life easier.
+
 
 
 The `/account/generatefakedata` endpoint can be used to generate fake data associated with your account.
