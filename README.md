@@ -76,3 +76,31 @@ Notifications:
 As this is an after thought, not required but it would also be great to include if you can manage it a notification if there are errors returns from the API. The API will typically return
 - 200, 400, 403, 500 HTTP status codes with a json "msg" field with the content of the message. It will be empty for 200 but will contain errors messages for failures.
 Up to you if you want to implement or if you can implement it once just to show the customer as an example.
+
+
+# Live API for Testing:
+I've created a live API with test data. To log in and obtain a valid jwt token navigate to [https://api.rhysevans.co.uk/auth/signup?role=supplyteacher](https://api.rhysevans.co.uk/auth/signup?role=supplyteacher). It will redirect to LinkedIn and you must sign in and approve the flow.    
+
+You will then be redirected to a landing page with a JWT token in the body and a new cookie called `access_token` with the jwt token in.
+This cookie will have approved domains tied to it so the react page should be able to pick it up (untested).
+We may need to change the auth flow and I'm open to suggestions to make your life easier.
+
+
+
+The `/account/generatefakedata` endpoint can be used to generate fake data associated with your account.
+>NOTE: You will need curl and jq installed for this to work.
+
+```
+export JWT_TOKEN="<PASTE in your JWT TOKEN>"
+export MY_ID=$(curl \
+  -H 'Accept: application/json' \
+  -H "Authorization: Bearer ${JWT_TOKEN}" \
+  https://api.rhysevans.co.uk/account | jq -r .id)
+curl \
+  -H 'Accept: application/json' \
+  -H "Authorization: Bearer ${JWT_TOKEN}" \
+  "https://api.rhysevans.co.uk/account/generatefakedata/${MY_ID}"
+```
+
+You can find a Swagger UI here [https://api.jarvis.rhysevans.co.uk/swagger/index.html](https://api.jarvis.rhysevans.co.uk/swagger/index.html)    
+and the OpenAPI/Swagger spec here [https://api.jarvis.rhysevans.co.uk/swagger/v1/swagger.json](https://api.jarvis.rhysevans.co.uk/swagger/v1/swagger.json).
