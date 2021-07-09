@@ -19,7 +19,7 @@ import {
   DropdownItem,
     Card,
     Badge
-} from './../../../../components';
+} from './../../../../../components';
 
 
 let s = [
