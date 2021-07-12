@@ -1,6 +1,7 @@
-FROM node:16-alpine
+FROM node:10-alpine
+RUN apk add git
 COPY ./src /app
 WORKDIR /app
-RUN apk add git && npm install
+RUN npm install
 EXPOSE 4100
 CMD npm start
